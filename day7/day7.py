@@ -1,10 +1,9 @@
 # Part1
 from pathlib import Path
-import matplotlib.pyplot as plt
 
 path = Path(__file__).resolve()
 parent = path.parent
-file_path = parent / 'files' / 'test7.txt'
+file_path = parent / 'day7.txt'
 
 def read_data(file_path):
     with open(file_path) as file_object:
@@ -13,29 +12,17 @@ def read_data(file_path):
     return data
 
 
-def plotme(data: list, path):
-    data = [23,85, 72, 43, 52]
-    labels = ['A', 'B', 'C', 'D', 'E']
-    plt.xticks(range(len(data)), labels)
-    plt.xlabel('Class')
-    plt.ylabel('Amounts')
-    plt.title('I am title')
-    plt.bar(range(len(data)), data) 
-    plt.savefig('plot.png')
-
-
-# def moving_cost(position: int, in_range):
-#     return cost_distribution
-
-#def distance_between_elements(position: int, in_range)
-
 data = read_data(file_path)
-available_space = [0 for i in range(max(data) + 1)]
-print(available_space)
+available_space = list(range(max(data) + 1))
+total_cost = [0 for i in range(len(available_space))]
+#print(available_space)
+for position in data:
+    #print(position)
+    distance = [abs(position - i) for i in available_space]
+    #print(distance)
+    cost = [int((n*(n+1))/2) for n in distance]
+    #print(cost)
+    total_cost = [a + b for a, b in zip(total_cost, cost)]
+    #print(total_cost)
 
-# Data - horizontal positions
-# Range of the data is max position
-# For each positions get the distance between distance_between_elements
-# Apply factorial for each distance in the range to get total cost cost_distribution
-# Merge cost distribution for each position to get superposition of cost_distribution
-# Minimum value index will be our position to allign to. Well total cost is already there as well
+print(f'Min fuel {min(total_cost)} in position {total_cost.index(min(total_cost))}')
