@@ -1,8 +1,17 @@
 # [Day 8: Seven Segment Search](https://adventofcode.com/2021/day/8)
 
+## Part1: count the digits
 How many times do digits 1, 4, 7, or 8 appear?
+This is quite easy and can be done in single operation
+```
+counter += 1 if len(segment) <= 4 or len(segment) == 7
+```
 
+## Part2: decode digits from input and provide the sum of all digits from output
+This is a more difficult task, yet easy to solve with just few conditions. There must be a better more efficient approach to this.
 
+### Digits representation
+```
   0:      1:      2:      3:      4:
  aaaa    ....    aaaa    aaaa    ....
 b    c  .    c  .    c  .    c  b    c
@@ -20,9 +29,9 @@ b    .  b    .  .    c  b    c  b    c
 .    f  e    f  .    f  e    f  .    f
 .    f  e    f  .    f  e    f  .    f
  gggg    gggg    ....    gggg    gggg
+```
 
-
-
+### Solution with conditions
 1. Take the input line and sort all into tuple from short to long values
 be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb 
 2. Shortest 2 segments is 1: be; difference from decoded elements is be
