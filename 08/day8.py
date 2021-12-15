@@ -3,7 +3,7 @@ from pathlib import Path
 
 path = Path(__file__).resolve()
 parent = path.parent
-file_path = parent / 'day8.txt'
+file_path = parent / 'test8.txt'
 
 def read_data(file_path):
     with open(file_path) as file_object:
