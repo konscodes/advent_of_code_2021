@@ -10,6 +10,8 @@ counter += 1 if len(segment) <= 4 or len(segment) == 7
 ## Part2: decode digits from input and provide the sum of all digits from output
 This is a more difficult task, yet easy to solve with just few conditions. There must be a better more efficient approach to this.
 
+Correct approach would be working with sets and their intersection to decode digits from input.
+
 ### Digits representation
 ```
   0:      1:      2:      3:      4:
@@ -79,4 +81,3 @@ fdcge fecdb fabcd
  - Middle: c
  - Lower left: a
  - Lower: f
-    
