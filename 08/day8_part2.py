@@ -26,18 +26,6 @@ def decode(input_data):
     return zero[0], one, two[0], three[0], four, five[0], six[0], seven, eight, nine[0]
 
 
-def match(output_data):
-    result = []
-    for mixed_letters in output_data:
-        result += [digits.index(digit) for digit in digits if set(mixed_letters) == digit]
-    return result
-
-
-def counter(decoded_digits):
-    string = ''.join([str(digit) for digit in decoded_digits])
-    return int(string)
-
-
 data = read_data(file_path)
 totals = 0
 for line in data:
@@ -47,8 +35,8 @@ for line in data:
     zero, one, two, three, four, five, six, seven, eight, nine = decode(input_data)
     digits = (zero, one, two, three, four, five, six, seven, eight, nine)
     # Get the digit from index of digits that match the output
-    result = match(output_data)
+    result = [digits.index(set(mixed_letters)) for mixed_letters in output_data]
     print(output_data, result)
-    totals += counter(result)
+    totals += int(''.join([str(digit) for digit in result]))
 
 print(f'Adding all of the output values produces {totals}')
