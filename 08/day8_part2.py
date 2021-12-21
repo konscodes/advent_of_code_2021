@@ -34,7 +34,7 @@ def match(output_data):
 
 
 def counter(decoded_digits):
-    string = ''.join(map(str, decoded_digits))
+    string = ''.join([str(digit) for digit in decoded_digits])
     return int(string)
 
 
