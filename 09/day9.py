@@ -2,7 +2,7 @@ from pathlib import Path
 
 script_path = Path(__file__).resolve()
 script_parent = script_path.parent
-data_file_path = script_parent / 'test9.txt'
+data_file_path = script_parent / 'day9.txt'
 
 def read_data(file_path):
     with open(file_path) as file_object:
@@ -16,22 +16,24 @@ def read_data(file_path):
 def local_lows(entry):
     slide_left = entry[1:] + [entry[-1] + 1]
     slide_right = [entry[0]+1] + entry[:-1]
-    return [i for i, j in enumerate(entry) if entry[i] < slide_left[i] and entry[i] < slide_right[i]]
+    return [index for index, value in enumerate(entry) if entry[index] < slide_left[index] and entry[index] < slide_right[index]]
 
 
 def global_lows(rows, columns):
     low_map = [[0 for i, _ in enumerate(columns)] for x, _ in enumerate(rows)]
     row_lows = [local_lows(row) for row in rows]
     column_lows = [local_lows(column) for column in columns]
-    print(row_lows)
-    print(column_lows)
     for row, lows in enumerate(row_lows):
         for low in lows:
             low_map[row][low] += 1
-
-    print(low_map)
+    for column, lows in enumerate(column_lows):
+        for low in lows:
+            low_map[low][column] += 1
+    low_points = [[i for i,j in zip(rows[x], low_map[x]) if j>=2] for x in range(len(rows))]
     return low_points
 
 
 rows, columns = read_data(data_file_path)
 low_points = global_lows(rows, columns)
+risk = sum([sum([x+1 for x in i]) for i in low_points])
+print(f'The sum of the risk levels of all low points {risk}')
