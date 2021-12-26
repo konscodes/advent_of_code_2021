@@ -10,5 +10,12 @@ The locations that are lower than any of its adjacent locations. Most locations 
 8767896789
 989996**5**678
 ```
+### Solution with low map
+Lows map will represent the whole space in the form of list of lists with rows and columns filled with 0's.
+```[[0,0,0], [0,0,0], [0,0,0]]``` for 3x3 space
+Initially I did compare each row and column values with nearby values by using sliding window. However now I know it would be easier with *zip* function.
+Once we get local lows for each row and column we now need to compare the two to find those lows that match.
+Low map was used for that purpose. We increment the match on the map and match those that are more than 1 to row elements.  
+
 
 ## Part2: 
