@@ -19,5 +19,8 @@ Low map was used for that purpose. We increment the match on the map and match t
 
 
 ## Part2: 
-Second part appeared too difficult for me to solve on my own. Also the approach I used for first part wont allow to easly adapt to new task.
+Second part appeared too difficult for me to solve on my own. Also the approach I used for first part wont allow to easily adapt to new task.
 Part 1 was rewritten with a better approach I saw [here](https://github.com/mdumke/aoc2021/blob/main/day09/main.py)
+
+I tried the Flood fill algorithm approach however it seems a bit complicated for the task. 
+I ended up just going backwards from each low point and check the neighbors.
