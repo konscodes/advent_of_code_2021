@@ -21,7 +21,7 @@ def total_syntax_error(data):
 
 if __name__ == '__main__':
     path = Path(__file__).resolve()
-    file = path.parent / 'test10.txt'
+    file = path.parent / 'day10.txt'
 
     with open(file) as f:
         data = f.read().splitlines()
