@@ -1,35 +1,48 @@
 from pathlib import Path
+from statistics import median
 
-def syntax_check(line, open):
+def syntax_check(line, chunk):
     corrupted = False
     for symb in line:
         if symb in symbols.keys():
-            open.append(symb)
+            chunk.append(symb)
         elif symb in symbols.values():
-            if symbols[open[-1]] == symb:
-                open.pop()
+            if symbols[chunk[-1]] == symb:
+                chunk.pop()
             else:
-                corrupted = True
-                return symb
+                #corrupted = True
                 #break
-    #return open, symb, corrupted
-    
+                return {'corrupted_symb': symb}
+    #return [(open, symb, corrupted)]
+    return {'incomplete_chunk': reversed(chunk)}
+
 
 def corrupted(data):
-    return [syntax_check(line, list()) for line in data]
-    #return [[symb for open, symb, corrupted in syntax_check(line, list()) if corrupted == True] for line in data]
+    return [syntax_check(line, list()).get('corrupted_symb') for line in data]
+
+
+def incomplete(data):
+    return [syntax_check(line, list()).get('incomplete_chunk') for line in data]
 
 
 def total_syntax_error(data):
     return sum([corrupted(data).count(char)*points for char, points in corruption_points.items()])
 
 
+def total_score(chunk):
+    score = 0
+    for value in chunk:
+        score *= 5
+        score += incomplete_points[value]
+    return score
+
+
 def complition_scores(data):
-    return sorted([10,20,30])
+    return [total_score(chunk) for chunk in incomplete(data) if chunk]
 
 
 def middle_score(data):
-    return complition_scores(data)[int(len(complition_scores(data)) / 2)]
+    return median(complition_scores(data))
 
 
 if __name__ == '__main__':
@@ -41,6 +54,6 @@ if __name__ == '__main__':
     
     symbols = {'(':')', '[':']', '{':'}', '<':'>'}
     corruption_points = {')':3, ']':57, '}':1197, '>':25137}
-    incomplete_points = {')':1, ']':2, '}':3, '>':4}
+    incomplete_points = {'(':1, '[':2, '{':3, '<':4}
     print('part1: ', total_syntax_error(data))
     print('part2: ', middle_score(data))
