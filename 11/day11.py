@@ -1,11 +1,17 @@
 from pathlib import Path
 
 def energy_levels(data):
-    return [([1], [2,3,1])]
+    return {'modified': [[1], [2,3,1]], 'flashes': 10}
 
 
 def count_flashes(data):
-    return [sum([x.count(0) for x in energy_levels(data)])]
+    total = 0
+    for i in range(100):
+        iteration = energy_levels(data)
+        total += iteration['flashes']
+        data = iteration['modified']
+    return total
+        
 
 if __name__ == '__main__':
     path = Path(__file__).resolve()
@@ -14,4 +20,4 @@ if __name__ == '__main__':
     with open(file) as f:
         data = f.read().splitlines()
     
-    print('part1: ', sum(count_flashes(data)))
+    print('part1: ', count_flashes(data))
