@@ -1,32 +1,43 @@
 from pathlib import Path
 
-def outbreak(flashes, neighbors):
-    # loop through each neighbor [(x,y), (x,y)]
-    # for each (x,y)
-    #   check if 9 ->>
-    #       set to 0
-    #       increment flashes[0] += 1
-    #       call outbreak(flashes, neighbors(i,j))
-    #   else increment data[x][y]
+def is_valid_position(data, i, j):
+    return i >= 0 and i < len(data) and \
+           j >= 0 and j < len(data[0])
+
+
+def neighbors(data, i, j):
+    return [(i+x, j+y) for x, y in [(-1, 0), (1, 0), (0, -1), (0, 1), 
+                                    (-1, 1), (-1, -1), (1, -1), (1, 1)]
+                        if is_valid_position(data, i+x, j+y)]
+
+
+def outbreak(flashes, nearby):
+    for a,b in nearby:
+        if data[a][b] == 9:
+            data[a][b] = 0
+            flashes[0] += 1
+            outbreak(flashes, neighbors(data, a,b))
+        else: data[a][b] += 1
     return 0
 
 
 def energy_levels(data):
     flashes = [0]
-    # loop through grid indexes i,j
-    # for each i,j 
-    #   check if 9 ->> 
-    #       set to 0
-    #       increment flashes[0] += 1
-    #       call outbreak(flashes, neighbors(i,j))
-    #   else increment data[i][j]
+    for i in range(len(data)):
+        for j in range(len(data[0])):
+            if data[i][j] == 9:
+                data[i][j] = 0
+                flashes[0] += 1
+                outbreak(flashes, neighbors(data, i,j))
+            else: data[i][j] += 1
+    [print(x) for x in data]
+    print()
     return flashes[0]
 
 
 def count_flashes(data):
     total = 0
-    for i in range(1):
-        print(i)
+    for i in range(2):
         total += energy_levels(data)
     return total
         
