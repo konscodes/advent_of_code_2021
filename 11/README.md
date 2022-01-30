@@ -4,4 +4,5 @@
 Looping over the given matrix to increment its values and check the neighbors once the value reaches 9.
 Shouldn't be an issue to implement with few functions. 
 
-## Part2: 
+## Part2: Find at which step all flashes are lid
+This is a part of my solution already so the output is done with a simple if statement 
