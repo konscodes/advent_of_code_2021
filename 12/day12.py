@@ -1,7 +1,15 @@
 from pathlib import Path
 
 def locate_path(entry, caves, path):
-    return ['Path if it is valid and has reached an end']
+    if entry == 'end':
+        return path
+    for cave in caves[entry]:
+        if cave in path and cave[0].islower():
+            continue
+        else:
+            path.append(cave)
+            locate_path(cave, caves, path)
+    return path
 
 def locate_all_pathways(caves):
     return [['List of pathways in a list']]
@@ -16,11 +24,11 @@ def read_data(file):
     return data
 
 def cave_connections(data):
-    return {'Each cave': 'And its connection'}
+    return {'Each cave': ['And its connection']}
 
 if __name__ == '__main__':
     path = Path(__file__).resolve()
     file = path.parent / 'test12.txt'
     pairs = read_data(file)
-    connections = cave_connections(pairs)
-    print('part1: ', locate_all_pathways(connections))
+    caves = cave_connections(pairs)
+    print('part1: ', locate_all_pathways(caves))
